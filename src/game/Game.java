@@ -43,7 +43,11 @@ public class Game {
 		pieces.addAll(createPieces(nRooks, 3));
 		pieces.addAll(createPieces(nBishops, 4));
 		
-		Logic.init(board, pieces);		
+		IPiece piece = pieces.get(0);
+		board = piece.threatenedSquares(board);
+		board.printBoard();
+		
+		//Logic.init(board, pieces);		
 	}
 	
 	/**
@@ -100,13 +104,13 @@ public class Game {
 					pieces.add(new Knight(2,2));
 					break;	
 				case 2:
-					pieces.add(new Queen(2,2));
+					pieces.add(new Queen(2,2,8));
 					break;
 				case 3:
-					pieces.add(new Rook(2,2));
+					pieces.add(new Rook(2,2,4));
 					break;
 				case 4:
-					pieces.add(new Bishop(2,2));
+					pieces.add(new Bishop(2,2,4));
 					break;
 			}
 		}

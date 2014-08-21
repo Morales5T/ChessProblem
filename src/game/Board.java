@@ -7,9 +7,9 @@ public class Board {
 	private int limitY;
 	
 	public Board(final Square[][] board){
-		this.setBoard(board);
-		this.setLimitX(this.getBoard()[0].length);
-		this.setLimitY(this.getBoard().length);
+		this.board = board;
+		this.limitX = board[0].length;
+		this.limitY = board.length;
 		this.initBoard();
 	}
 	
@@ -29,7 +29,7 @@ public class Board {
 		
 		for(int i=0; i< this.getLimitY(); i++){
 			for(int j=0; j<this.getLimitX(); j++){
-				this.setSquare(i, j, Square.FREE);
+				this.board[i][j] = Square.FREE;
 			}
 		}
 		
