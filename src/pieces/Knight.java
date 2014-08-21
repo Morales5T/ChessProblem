@@ -5,12 +5,14 @@ import game.Square;
 
 public class Knight extends Piece{
 
-	public Knight(int x, int y) {
+	public Knight(final int x, final int y) {
 		super(x, y);
+		this.setMovement();
 	}
 	
 	public Knight() {
 		super();
+		this.setMovement();
 	}
 
 	@Override
