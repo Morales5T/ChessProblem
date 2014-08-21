@@ -1,6 +1,13 @@
 package pieces;
 
+import game.Square;
+
 public class Queen extends Piece{
+	
+	public Queen(final int limit) {
+		super(limit);
+		this.setMovement();
+	}
 	
 	public Queen(final int x, final int y, final int limit) {
 		super(x, y, limit);
@@ -10,6 +17,10 @@ public class Queen extends Piece{
 	public Queen() {
 		super();
 		this.setMovement();
+	}
+	
+	public Square getType(){
+		return Square.QUEEN;
 	}
 
 	@Override

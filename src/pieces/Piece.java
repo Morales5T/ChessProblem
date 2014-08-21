@@ -12,6 +12,11 @@ public abstract class Piece implements IPiece{
 	
 	public Piece (){}
 	
+	public Piece (final int limit){
+		this.limit = limit;
+		this.movement = new int[3][3][2];
+	}
+	
 	public Piece (final int x, final int y){
 		this.x = x;
 		this.y = y;
@@ -29,7 +34,7 @@ public abstract class Piece implements IPiece{
 		
 		if(board.isFree(this.getY(), this.getX())){
 			
-			board.getBoard()[this.getY()][this.getX()] = Square.ROOK;
+			board.getBoard()[this.getY()][this.getX()] = this.getType();
 			
 			int count = 0;
 			int iter = 0;
@@ -68,19 +73,19 @@ public abstract class Piece implements IPiece{
 		return board;
 	}
 	
-	protected void setX(final int x){
+	public void setX(final int x){
 		this.x = x;
 	}
 	
-	protected int getX(){
+	public int getX(){
 		return this.x;
 	}
 	
-	protected void setY(final int y){
+	public void setY(final int y){
 		this.y = y;
 	}
 	
-	protected int getY(){
+	public int getY(){
 		return this.y;
 	}
 	

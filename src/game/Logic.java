@@ -7,10 +7,28 @@ import pieces.IPiece;
 public class Logic {
 	
 	public static void init(Board board, final ArrayList<IPiece> pieces){
-			/*IPiece piece = pieces.get(i);
-			piece.setMovement();
-			board = piece.threatenedSquares(board);
-			board.printBoard();*/
+		
+		int index=0;
+		IPiece piece;
+		Board boardAux;
+		
+		while(!pieces.isEmpty()){
+			piece = pieces.remove(index);
+			for(int i=0; i<board.getLimitY(); i++){
+				piece.setY(i);
+				for(int j=0; j<board.getLimitX(); j++){
+					piece.setX(j);
+					boardAux = piece.threatenedSquares(board);
+					if(pieces.isEmpty() && (null != boardAux)){
+						Game.mSolutions.add(boardAux);
+					}
+					if ( null != boardAux){			
+						init(boardAux, pieces);
+					}									
+				}
+			}
+			index++;
+		}
 	}
 
 }

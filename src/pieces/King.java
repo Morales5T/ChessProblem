@@ -66,5 +66,10 @@ public class King extends Piece{
 		}
 		
 	}
+	
+	@Override
+	public Square getType() {
+		return Square.KING;
+	}
 
 }

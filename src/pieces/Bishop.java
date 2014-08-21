@@ -1,6 +1,13 @@
 package pieces;
 
+import game.Square;
+
 public class Bishop extends Piece{
+	
+	public Bishop(final int limit) {
+		super(limit);
+		this.setMovement();
+	}
 	
 	public Bishop(final int x, final int y, final int limit) {
 		super(x, y, limit);
@@ -10,6 +17,10 @@ public class Bishop extends Piece{
 	public Bishop() {
 		super();
 		this.setMovement();
+	}
+	
+	public Square getType(){
+		return Square.BISHOP;
 	}
 
 	@Override

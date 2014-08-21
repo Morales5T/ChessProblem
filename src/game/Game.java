@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import pieces.Bishop;
 import pieces.IPiece;
@@ -17,6 +18,12 @@ public class Game {
 	
 	private static final String CTE_NUMBER_ERROR = "Please introduce a valid number";
 	
+	public static List<Board> mSolutions;
+	
+	public Game(){
+		mSolutions = new ArrayList<Board>();
+	}
+
 	public static void main(String args[]){
 		
 		InputStreamReader isr = new InputStreamReader(System.in);
@@ -43,11 +50,10 @@ public class Game {
 		pieces.addAll(createPieces(nRooks, 3));
 		pieces.addAll(createPieces(nBishops, 4));
 		
-		IPiece piece = pieces.get(0);
-		board = piece.threatenedSquares(board);
-		board.printBoard();
+		Logic.init(board, pieces);
 		
-		//Logic.init(board, pieces);		
+		printSolutions(mSolutions);
+		
 	}
 	
 	/**
@@ -98,23 +104,33 @@ public class Game {
 		for(int i=0; i< n; i++){
 			switch(type){
 				case 0:
-					pieces.add(new King(2,2));
+					pieces.add(new King());
 					break;
 				case 1:
-					pieces.add(new Knight(2,2));
+					pieces.add(new Knight());
 					break;	
 				case 2:
-					pieces.add(new Queen(2,2,8));
+					pieces.add(new Queen(8));
 					break;
 				case 3:
-					pieces.add(new Rook(2,2,4));
+					pieces.add(new Rook(4));
 					break;
 				case 4:
-					pieces.add(new Bishop(2,2,4));
+					pieces.add(new Bishop(4));
 					break;
 			}
 		}
 		
 		return pieces;
+	}
+	
+	private static void printSolutions(final List<Board> solutions){
+		
+		System.out.println("There are " + solutions.size() + " solutions");
+		Board board;
+		for(int i=0; i<solutions.size(); i++){
+			solutions.get(i).printBoard();
+		}
+		
 	}
 }

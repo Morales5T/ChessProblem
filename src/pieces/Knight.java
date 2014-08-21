@@ -100,10 +100,16 @@ public class Knight extends Piece{
 			return null;
 		}
 	}
+	
+	@Override
+	public Square getType() {
+		return Square.KING;
+	}
 
 	@Override
 	public void setMovement() {
 		// TODO Auto-generated method stub
+		
 	}
 
 }
