@@ -10,6 +10,7 @@ import pieces.Bishop;
 import pieces.IPiece;
 import pieces.King;
 import pieces.Knight;
+import pieces.Piece;
 import pieces.Queen;
 import pieces.Rook;
 
@@ -52,8 +53,7 @@ public class Game {
 		
 		Logic.init(board, pieces);
 		
-		printSolutions(mSolutions);
-		
+		printSolutions(mSolutions);		
 	}
 	
 	/**
@@ -110,13 +110,13 @@ public class Game {
 					pieces.add(new Knight());
 					break;	
 				case 2:
-					pieces.add(new Queen(8));
+					pieces.add(new Queen());
 					break;
 				case 3:
-					pieces.add(new Rook(4));
+					pieces.add(new Rook());
 					break;
 				case 4:
-					pieces.add(new Bishop(4));
+					pieces.add(new Bishop());
 					break;
 			}
 		}
@@ -126,11 +126,17 @@ public class Game {
 	
 	private static void printSolutions(final List<Board> solutions){
 		
-		System.out.println("There are " + solutions.size() + " solutions");
-		Board board;
-		for(int i=0; i<solutions.size(); i++){
-			solutions.get(i).printBoard();
+		if(null == solutions){
+			System.out.println("No solutions");
 		}
+		else{
+			System.out.println("There are " + solutions.size() + " solutions");
+			for(int i=0; i<solutions.size(); i++){
+				solutions.get(i).printBoard();
+			}
+		}
+
+		
 		
 	}
 }

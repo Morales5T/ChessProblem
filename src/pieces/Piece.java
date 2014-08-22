@@ -1,70 +1,57 @@
 package pieces;
 
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+
 import game.Board;
 import game.Square;
 
 public abstract class Piece implements IPiece{
 	
-	private int x;
-	private int y;
-	protected int [][][] movement;
-	private int limit;
+	protected Point point = new Point();
+	protected List<Point> movement = new ArrayList<Point>();
 	
 	public Piece (){}
 	
-	public Piece (final int limit){
-		this.limit = limit;
-		this.movement = new int[3][3][2];
-	}
-	
 	public Piece (final int x, final int y){
-		this.x = x;
-		this.y = y;
-		this.movement = new int[3][3][2];
-	}
-	
-	public Piece (final int x, final int y, final int limit){
-		this.x = x;
-		this.y = y;
-		this.movement = new int[3][3][2];
-		this.limit = limit;
+		this.point.x = x;
+		this.point.y = y;
 	}
 	
 	public Board threatenedSquares(Board board) {
 		
-		if(board.isFree(this.getY(), this.getX())){
+		if(board.isFree(this.point.y, this.point.x)){
 			
-			board.getBoard()[this.getY()][this.getX()] = this.getType();
+			board.getBoard()[this.point.y][this.point.x] = this.getType();
 			
-			int count = 0;
 			int iter = 0;
 			int posX;
 			int posY;
+			Point point;
+			int aux;
 			
-			while(count < this.limit){
+			while(!this.movement.isEmpty()){
 				iter++;
-				for(int i=0; i<3; i++){
-					for(int j=0; j<3; j++){
-						if(!((this.movement[i][j][0] == 0) && (this.movement[i][j][1] == 0))){
-							posX = (this.movement[i][j][0] * iter) + this.getX();
-							posY = (this.movement[i][j][1] * iter) + this.getY();
-							if(board.isInsideBoard(posY, posX)){
-								if(board.isValid(posY, posX)){
-									board.getBoard()[posY][posX] = Square.THREATED;
-								}
-								else{
-									return null;
-								}
-							}
-							else{
-								count++;
-								this.movement[i][j][0] = 0;
-								this.movement[i][j][1] = 0;
-							}
+				aux=0;
+				while(aux < this.movement.size()){
+					point = this.movement.get(aux);
+					posX = (point.x * iter) + this.point.x;
+					posY = (point.y * iter) + this.point.y;
+					if(board.isInsideBoard(posY, posX)){
+						if(board.isValid(posY, posX)){
+							board.getBoard()[posY][posX] = Square.THREATED;
+							aux++;
 						}
-					}					
+						else{
+							return null;
+						}
+					}
+					else{
+						this.movement.remove(point);
+					}
 				}
-			}
+			}					
 		}
 		else{
 			return null;
@@ -73,28 +60,31 @@ public abstract class Piece implements IPiece{
 		return board;
 	}
 	
+	public void setMovement() { 
+		
+		for(int i=-1; i<2; i++){
+			for(int j=-1; j<2; j++){
+				this.movement.add(new Point(i,j));
+			}
+		}
+		
+		this.movement.remove(new Point(0,0));
+		
+	}
+	
 	public void setX(final int x){
-		this.x = x;
+		this.point.x = x;
 	}
 	
 	public int getX(){
-		return this.x;
+		return this.point.x;
 	}
 	
 	public void setY(final int y){
-		this.y = y;
+		this.point.y = y;
 	}
 	
 	public int getY(){
-		return this.y;
+		return this.point.y;
 	}
-	
-	protected void setLimit(final int limit){
-		this.limit = limit;
-	}
-	
-	protected int getLimit(){
-		return this.limit;
-	}
-
 }

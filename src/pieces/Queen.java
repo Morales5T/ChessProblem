@@ -4,13 +4,8 @@ import game.Square;
 
 public class Queen extends Piece{
 	
-	public Queen(final int limit) {
-		super(limit);
-		this.setMovement();
-	}
-	
-	public Queen(final int x, final int y, final int limit) {
-		super(x, y, limit);
+	public Queen(final int x, final int y) {
+		super(x, y);
 		this.setMovement();
 	}
 	
@@ -21,24 +16,6 @@ public class Queen extends Piece{
 	
 	public Square getType(){
 		return Square.QUEEN;
-	}
-
-	@Override
-	public void setMovement() {
-		
-		int y = -1;
-		int x = -1;
-		
-		for(int i=0; i<3; i++){
-			for(int j=0; j<3; j++){
-				super.movement[i][j][0] = x;
-				super.movement[i][j][1] = y;
-				x++;
-			}
-			y++;
-			x=-1;
-		}
-		
 	}
 
 }

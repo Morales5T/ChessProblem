@@ -1,16 +1,13 @@
 package pieces;
 
+import java.awt.Point;
+
 import game.Square;
 
 public class Bishop extends Piece{
 	
-	public Bishop(final int limit) {
-		super(limit);
-		this.setMovement();
-	}
-	
-	public Bishop(final int x, final int y, final int limit) {
-		super(x, y, limit);
+	public Bishop(final int x, final int y) {
+		super(x, y);
 		this.setMovement();
 	}
 	
@@ -25,25 +22,12 @@ public class Bishop extends Piece{
 
 	@Override
 	public void setMovement() {
-		
-		int y = -1;
-		int x = -1;
-		
-		for(int i=0; i<3; i++){
-			for(int j=0; j<3; j++){
-				if(!(x==0 || y==0)){
-					super.movement[i][j][0] = x;
-					super.movement[i][j][1] = y;
-				}
-				else{
-					super.movement[i][j][0] = 0;
-					super.movement[i][j][1] = 0;
-				}
-				x++;
-			}
-			y++;
-			x=-1;
-		}
+
+		super.movement.add(new Point(-1,1));
+		super.movement.add(new Point(-1,-1));
+		super.movement.add(new Point(1,-1));
+		super.movement.add(new Point(1,1));
+					
 	}
 
 }
