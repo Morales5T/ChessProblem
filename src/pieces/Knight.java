@@ -20,11 +20,13 @@ public class Knight extends Piece{
 	@Override
 	public Board threatenedSquares(Board board) {
 		
+		Board boardAux = board.clone();
+		
 		//Check position where the piece is going to be placed
-		if(board.isFree(super.getY(), super.getX())){
+		if(boardAux.isFree(super.getY(), super.getX())){
 			
 			//Place the piece
-			board.getSquares()[super.getY()][super.getX()] = Square.KNIGHT;
+			boardAux.setSquare(this.point.y, this.point.x, Square.KNIGHT);
 			
 			int posX;
 			int posY;
@@ -34,9 +36,9 @@ public class Knight extends Piece{
 				point = this.movement.get(i);
 				posX = point.x + super.point.x;
 				posY = point.y + super.point.y;
-				if(board.isInsideBoard(posY, posX)){
-					if(board.isValid(posY, posX)){
-						board.getSquares()[posY][posX] = Square.THREATED;
+				if(boardAux.isInsideBoard(posY, posX)){
+					if(boardAux.isValid(posY, posX)){
+						boardAux.getSquares()[posY][posX] = Square.THREATED;
 					}
 					else{
 						return null;
@@ -44,7 +46,7 @@ public class Knight extends Piece{
 				}
 			}
 			
-			return board;			
+			return boardAux;			
 		}
 		else{
 			return null;

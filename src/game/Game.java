@@ -10,7 +10,6 @@ import pieces.Bishop;
 import pieces.IPiece;
 import pieces.King;
 import pieces.Knight;
-import pieces.Piece;
 import pieces.Queen;
 import pieces.Rook;
 
@@ -18,12 +17,8 @@ import pieces.Rook;
 public class Game {
 	
 	private static final String CTE_NUMBER_ERROR = "Please introduce a valid number";
-	
-	public static List<Board> mSolutions;
 
 	public static void main(String args[]){
-		
-		mSolutions = new ArrayList<Board>();
 		
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
@@ -49,9 +44,10 @@ public class Game {
 		pieces.addAll(createPieces(nRooks, 3));
 		pieces.addAll(createPieces(nBishops, 4));
 		
-		Logic.init(board, pieces);
+		List<Board> solutions = new ArrayList<Board>();
+		Logic.init(board, pieces, solutions);
 		
-		printSolutions(mSolutions);		
+		printSolutions(solutions);		
 	}
 	
 	/**
@@ -124,17 +120,10 @@ public class Game {
 	
 	private static void printSolutions(final List<Board> solutions){
 		
-		if(null == solutions){
-			System.out.println("No solutions");
+		System.out.println("There are " + solutions.size() + " solutions");
+		for(int i=0; i<solutions.size(); i++){
+			solutions.get(i).printBoard();
 		}
-		else{
-			System.out.println("There are " + solutions.size() + " solutions");
-			for(int i=0; i<solutions.size(); i++){
-				solutions.get(i).printBoard();
-			}
-		}
-
-		
 		
 	}
 }

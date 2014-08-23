@@ -1,24 +1,20 @@
 package game;
 
-public class Board {
+public class Board implements Cloneable{
 	
 	private Square[][] squares;
-	private int limitX;
-	private int limitY;
 	
 	public Board(){
 		
 	}
 	
-	public Board(final Square[][] board){
-		this.squares = board;
-		this.limitX = board[0].length;
-		this.limitY = board.length;
+	public Board(final Square[][] squares){
+		this.squares = squares;
 		this.initBoard();
 	}
 	
 	public boolean isInsideBoard(final int y, final int x){				
-		return (x >= 0 && x < this.getLimitX()) && (y>=0 && y < this.limitY);
+		return (x >= 0 && x < this.squares[0].length) && (y>=0 && y < this.squares.length);
 	}
 	
 	public boolean isValid(final int y, final int x){			
@@ -31,8 +27,8 @@ public class Board {
 	
 	private void initBoard(){		
 		
-		for(int i=0; i< this.getLimitY(); i++){
-			for(int j=0; j<this.getLimitX(); j++){
+		for(int i=0; i< this.squares.length; i++){
+			for(int j=0; j< this.squares[0].length; j++){
 				this.squares[i][j] = Square.FREE;
 			}
 		}
@@ -41,14 +37,26 @@ public class Board {
 	
 	public void printBoard(){
 		
-		for(int i=0; i< this.getLimitY(); i++){
-			for(int j=0; j<this.getLimitX(); j++){
+		for(int i=0; i< this.squares.length; i++){
+			for(int j=0; j< this.squares[0].length; j++){
 				System.out.print(this.getSquare(i, j) + " ");
 			}
 			System.out.println();
 		}
 		
 		System.out.println();
+	}
+	
+	public Board clone(){
+		Board boardClone = new Board(new Square[this.squares.length][this.squares[0].length]);
+		
+		for(int i=0; i< this.squares.length; i++){
+			for(int j=0; j< this.squares[0].length; j++){
+				boardClone.squares[i][j] = this.squares[i][j];
+			}
+		}
+		
+		return boardClone;
 	}
 	
 	public void setSquare(final int y, final int x, final Square square){
@@ -59,28 +67,12 @@ public class Board {
 		return this.squares[y][x];
 	}
 	
-	public void setSquares(final Square[][] board){
-		this.squares = board;
+	public void setSquares(final Square[][] squares){
+		this.squares = squares;
 	}
 	
 	public Square[][] getSquares(){
 		return this.squares;
-	}
-	
-	public void setLimitX(final int limitX){
-		this.limitX = limitX;
-	}
-	
-	public int getLimitX(){
-		return this.limitX;
-	}
-	
-	public void setLimitY(final int limitY){
-		this.limitY = limitY;
-	}
-	
-	public int getLimitY(){
-		return this.limitY;
 	}
 
 }

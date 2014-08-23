@@ -21,9 +21,11 @@ public class King extends Piece{
 	@Override
 	public Board threatenedSquares(Board board) {
 		
-		if(board.isFree(super.getY(), super.getX())){
+		Board boardAux = board.clone();
+		
+		if(boardAux.isFree(super.getY(), super.getX())){
 			
-			board.getSquares()[super.getY()][super.getX()] = Square.KING;
+			boardAux.setSquare(this.point.y, this.point.x, Square.KING);
 			
 			int posX;
 			int posY;
@@ -33,9 +35,9 @@ public class King extends Piece{
 				point = this.movement.get(i);
 				posX = point.x + super.point.x;
 				posY = point.y + super.point.y;
-				if(board.isInsideBoard(posY, posX)){
-					if(board.isValid(posY, posX)){
-						board.getSquares()[posY][posX] = Square.THREATED;
+				if(boardAux.isInsideBoard(posY, posX)){
+					if(boardAux.isValid(posY, posX)){
+						boardAux.getSquares()[posY][posX] = Square.THREATED;
 					}
 					else{
 						return null;
@@ -48,7 +50,7 @@ public class King extends Piece{
 			return null;
 		}
 		
-		return board;
+		return boardAux;
 	}
 	
 	@Override

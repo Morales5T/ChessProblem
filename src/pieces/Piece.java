@@ -10,7 +10,7 @@ import game.Square;
 public abstract class Piece implements IPiece{
 	
 	protected Point point = new Point();
-	protected List<Point> movement = new ArrayList<Point>();
+	protected ArrayList<Point> movement = new ArrayList<Point>();
 	
 	public Piece (){}
 	
@@ -20,27 +20,30 @@ public abstract class Piece implements IPiece{
 	}
 	
 	public Board threatenedSquares(final Board board) {
-
-		if(board.isFree(this.point.y, this.point.x)){
+		
+		Board boardAux = board.clone();
+		
+		if(boardAux.isFree(this.point.y, this.point.x)){
 			
-			board.getSquares()[this.point.y][this.point.x] = this.getType();
+			boardAux.setSquare(this.point.y, this.point.x, this.getType());
 			
 			int iter = 0;
 			int posX;
 			int posY;
 			Point point;
 			int aux;
+			List<Point> movementAux = (ArrayList<Point>)this.movement.clone();
 			
-			while(!this.movement.isEmpty()){
+			while(!movementAux.isEmpty()){
 				iter++;
 				aux=0;
-				while(aux < this.movement.size()){
-					point = this.movement.get(aux);
+				while(aux < movementAux.size()){
+					point = movementAux.get(aux);
 					posX = (point.x * iter) + this.point.x;
 					posY = (point.y * iter) + this.point.y;
-					if(board.isInsideBoard(posY, posX)){
-						if(board.isValid(posY, posX)){
-							board.getSquares()[posY][posX] = Square.THREATED;
+					if(boardAux.isInsideBoard(posY, posX)){
+						if(boardAux.isValid(posY, posX)){
+							boardAux.getSquares()[posY][posX] = Square.THREATED;
 							aux++;
 						}
 						else{
@@ -48,7 +51,7 @@ public abstract class Piece implements IPiece{
 						}
 					}
 					else{
-						this.movement.remove(point);
+						movementAux.remove(point);
 					}
 				}
 			}					
@@ -57,7 +60,7 @@ public abstract class Piece implements IPiece{
 			return null;
 		}
 		
-		return board;
+		return boardAux;
 	}
 	
 	public void setMovement() { 
