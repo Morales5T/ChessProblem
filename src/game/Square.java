@@ -1,6 +1,8 @@
 package game;
 	
-/*
+/**
+ * @author Luis
+ *
  * Possible states of one square
  */
 public enum Square{

@@ -4,6 +4,12 @@ import java.awt.Point;
 
 import game.Square;
 
+/**
+ * 
+ * @author Luis
+ *
+ * Knight implementation
+ */
 public class Knight extends Piece{
 
 	public Knight(final int x, final int y) {
@@ -21,6 +27,9 @@ public class Knight extends Piece{
 		return Square.KNIGHT;
 	}
 
+	/**
+	 * Sets the directions of the Knight
+	 */
 	@Override
 	public void setMovement() { 	
 		this.movement.add(new Point(-2,-1));

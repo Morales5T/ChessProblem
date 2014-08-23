@@ -13,11 +13,21 @@ import pieces.Knight;
 import pieces.Queen;
 import pieces.Rook;
 
-
+/**
+ * 
+ * @author Luis
+ *
+ * Main class
+ */
 public class Game {
 	
 	private static final String CTE_NUMBER_ERROR = "Please introduce a valid number";
 
+	/**
+	 * Main method
+	 * 
+	 * @param args
+	 */
 	public static void main(String args[]){
 		
 		InputStreamReader isr = new InputStreamReader(System.in);
@@ -48,21 +58,6 @@ public class Game {
 		Logic.init(board, pieces, solutions);
 		
 		printSolutions(solutions);		
-		
-		/*Board board = new Board(new Square[5][5]);
-		Piece piece = new Rook(0,0);
-		board = piece.threatenedSquares(board);
-		board.printBoard();
-		
-		board = new Board(new Square[5][5]);
-		piece = new Rook(2,2);
-		board = piece.threatenedSquares(board);
-		board.printBoard();
-		
-		board = new Board(new Square[5][5]);
-		piece = new Rook(4,4);
-		board = piece.threatenedSquares(board);
-		board.printBoard();*/
 	}
 	
 	/**
@@ -106,6 +101,13 @@ public class Game {
 		return x;
 	}
 	
+	/**
+	 * Creates the number of pieces of each type that the user has introduced. 
+	 * 
+	 * @param n number of pieces
+	 * @param type type of piece
+	 * @return list of pieces
+	 */
 	private static ArrayList<IPiece> createPieces(final int n, final int type){
 		
 		ArrayList<IPiece> pieces = new ArrayList<IPiece>();
@@ -133,6 +135,11 @@ public class Game {
 		return pieces;
 	}
 	
+	/**
+	 * Prints all the final solutions. 
+	 * 
+	 * @param list of solutions
+	 */
 	private static void printSolutions(final List<Board> solutions){
 		
 		for(int i=0; i<solutions.size(); i++){

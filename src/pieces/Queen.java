@@ -2,6 +2,12 @@ package pieces;
 
 import game.Square;
 
+/**
+ * 
+ * @author Luis
+ *
+ * Queen implementation
+ */
 public class Queen extends Piece{
 	
 	public Queen(final int x, final int y) {

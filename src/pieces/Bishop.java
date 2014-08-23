@@ -4,6 +4,12 @@ import java.awt.Point;
 
 import game.Square;
 
+/**
+ * 
+ * @author Luis
+ *
+ * Bishop implementation
+ */
 public class Bishop extends Piece{
 	
 	public Bishop(final int x, final int y) {
@@ -20,6 +26,9 @@ public class Bishop extends Piece{
 		return Square.BISHOP;
 	}
 
+	/**
+	 * Sets the directions of the Bishop
+	 */
 	@Override
 	public void setMovement() {
 

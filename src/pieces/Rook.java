@@ -4,6 +4,12 @@ import java.awt.Point;
 
 import game.Square;
 
+/**
+ * 
+ * @author Luis
+ *
+ * Rook implementation
+ */
 public class Rook extends Piece{
 	
 	public Rook(final int x, final int y) {
@@ -20,6 +26,9 @@ public class Rook extends Piece{
 		return Square.ROOK;
 	}
 
+	/**
+	 * Sets the directions of the Rook
+	 */
 	@Override
 	public void setMovement() { 
 
