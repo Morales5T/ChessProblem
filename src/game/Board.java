@@ -2,12 +2,16 @@ package game;
 
 public class Board {
 	
-	private Square[][] board;
+	private Square[][] squares;
 	private int limitX;
 	private int limitY;
 	
+	public Board(){
+		
+	}
+	
 	public Board(final Square[][] board){
-		this.board = board;
+		this.squares = board;
 		this.limitX = board[0].length;
 		this.limitY = board.length;
 		this.initBoard();
@@ -18,18 +22,18 @@ public class Board {
 	}
 	
 	public boolean isValid(final int y, final int x){			
-		return this.getBoard()[y][x].equals(Square.FREE) || this.getBoard()[y][x].equals(Square.THREATED);
+		return this.squares[y][x].equals(Square.FREE) || this.squares[y][x].equals(Square.THREATED);
 	}
 	
 	public boolean isFree(final int y, final int x){			
-		return this.getBoard()[y][x].equals(Square.FREE);
+		return this.squares[y][x].equals(Square.FREE);
 	}
 	
 	private void initBoard(){		
 		
 		for(int i=0; i< this.getLimitY(); i++){
 			for(int j=0; j<this.getLimitX(); j++){
-				this.board[i][j] = Square.FREE;
+				this.squares[i][j] = Square.FREE;
 			}
 		}
 		
@@ -48,19 +52,19 @@ public class Board {
 	}
 	
 	public void setSquare(final int y, final int x, final Square square){
-		this.board[y][x] = square;
+		this.squares[y][x] = square;
 	}
 	
 	public Square getSquare(final int y, final int x){
-		return this.board[y][x];
+		return this.squares[y][x];
 	}
 	
-	public void setBoard(final Square[][] board){
-		this.board = board;
+	public void setSquares(final Square[][] board){
+		this.squares = board;
 	}
 	
-	public Square[][] getBoard(){
-		return this.board;
+	public Square[][] getSquares(){
+		return this.squares;
 	}
 	
 	public void setLimitX(final int limitX){

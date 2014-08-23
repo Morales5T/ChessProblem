@@ -20,12 +20,10 @@ public class Game {
 	private static final String CTE_NUMBER_ERROR = "Please introduce a valid number";
 	
 	public static List<Board> mSolutions;
-	
-	public Game(){
-		mSolutions = new ArrayList<Board>();
-	}
 
 	public static void main(String args[]){
+		
+		mSolutions = new ArrayList<Board>();
 		
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);

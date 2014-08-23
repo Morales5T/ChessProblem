@@ -6,7 +6,7 @@ import pieces.IPiece;
 
 public class Logic {
 	
-	public static void init(Board board, final ArrayList<IPiece> pieces){
+	public static void init(final Board board, final ArrayList<IPiece> pieces){
 		
 		int index=0;
 		IPiece piece;
@@ -22,7 +22,7 @@ public class Logic {
 					if(pieces.isEmpty() && (null != boardAux)){
 						Game.mSolutions.add(boardAux);
 					}
-					if ( null != boardAux){			
+					if ( null == boardAux){			
 						init(boardAux, pieces);
 					}									
 				}

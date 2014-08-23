@@ -23,7 +23,7 @@ public class King extends Piece{
 		
 		if(board.isFree(super.getY(), super.getX())){
 			
-			board.getBoard()[super.getY()][super.getX()] = Square.KING;
+			board.getSquares()[super.getY()][super.getX()] = Square.KING;
 			
 			int posX;
 			int posY;
@@ -35,7 +35,7 @@ public class King extends Piece{
 				posY = point.y + super.point.y;
 				if(board.isInsideBoard(posY, posX)){
 					if(board.isValid(posY, posX)){
-						board.getBoard()[posY][posX] = Square.THREATED;
+						board.getSquares()[posY][posX] = Square.THREATED;
 					}
 					else{
 						return null;

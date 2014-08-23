@@ -19,11 +19,11 @@ public abstract class Piece implements IPiece{
 		this.point.y = y;
 	}
 	
-	public Board threatenedSquares(Board board) {
-		
+	public Board threatenedSquares(final Board board) {
+
 		if(board.isFree(this.point.y, this.point.x)){
 			
-			board.getBoard()[this.point.y][this.point.x] = this.getType();
+			board.getSquares()[this.point.y][this.point.x] = this.getType();
 			
 			int iter = 0;
 			int posX;
@@ -40,7 +40,7 @@ public abstract class Piece implements IPiece{
 					posY = (point.y * iter) + this.point.y;
 					if(board.isInsideBoard(posY, posX)){
 						if(board.isValid(posY, posX)){
-							board.getBoard()[posY][posX] = Square.THREATED;
+							board.getSquares()[posY][posX] = Square.THREATED;
 							aux++;
 						}
 						else{
