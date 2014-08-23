@@ -24,43 +24,78 @@ public abstract class Piece implements IPiece{
 		Board boardAux = board.clone();
 		
 		if(boardAux.isFree(this.point.y, this.point.x)){
-			
-			boardAux.setSquare(this.point.y, this.point.x, this.getType());
-			
-			int iter = 0;
-			int posX;
-			int posY;
-			Point point;
-			int aux;
-			List<Point> movementAux = (ArrayList<Point>)this.movement.clone();
-			
-			while(!movementAux.isEmpty()){
-				iter++;
-				aux=0;
-				while(aux < movementAux.size()){
-					point = movementAux.get(aux);
-					posX = (point.x * iter) + this.point.x;
-					posY = (point.y * iter) + this.point.y;
-					if(boardAux.isInsideBoard(posY, posX)){
-						if(boardAux.isValid(posY, posX)){
-							boardAux.getSquares()[posY][posX] = Square.THREATED;
-							aux++;
-						}
-						else{
-							return null;
-						}
-					}
-					else{
-						movementAux.remove(point);
-					}
-				}
-			}					
+			if(Square.KING.equals(this.getType()) || Square.KNIGHT.equals(this.getType())){
+				this.threatenedSquaresB(boardAux);
+			}
+			else{
+				this.threatenedSquaresA(boardAux);
+			}								
 		}
 		else{
 			return null;
 		}
 		
 		return boardAux;
+	}
+	
+	private void threatenedSquaresA(Board board) {
+		
+		
+		board.setSquare(this.point.y, this.point.x, this.getType());
+		
+		int iter = 0;
+		int posX;
+		int posY;
+		Point point;
+		int aux;
+		List<Point> movementAux = (ArrayList<Point>)this.movement.clone();
+		
+		while(!movementAux.isEmpty()){
+			iter++;
+			aux=0;
+			while(aux < movementAux.size()){
+				point = movementAux.get(aux);
+				posX = (point.x * iter) + this.point.x;
+				posY = (point.y * iter) + this.point.y;
+				if(board.isInsideBoard(posY, posX)){
+					if(board.isValid(posY, posX)){
+						board.getSquares()[posY][posX] = Square.THREATED;
+						aux++;
+					}
+					else{
+						board = null;
+					}
+				}
+				else{
+					movementAux.remove(point);
+				}
+			}
+		}
+	}
+	
+	private void threatenedSquaresB(Board board) {
+		
+		
+		board.setSquare(this.point.y, this.point.x, this.getType());
+		
+		int posX;
+		int posY;
+		Point point;
+		
+		for(int i=0; i<this.movement.size(); i++){
+			point = this.movement.get(i);
+			posX = point.x + this.point.x;
+			posY = point.y + this.point.y;
+			if(board.isInsideBoard(posY, posX)){
+				if(board.isValid(posY, posX)){
+					board.getSquares()[posY][posX] = Square.THREATED;
+				}
+				else{
+					board = null;
+				}
+			}
+		}
+		
 	}
 	
 	public void setMovement() { 

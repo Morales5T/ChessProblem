@@ -48,6 +48,21 @@ public class Game {
 		Logic.init(board, pieces, solutions);
 		
 		printSolutions(solutions);		
+		
+		/*Board board = new Board(new Square[5][5]);
+		Piece piece = new Rook(0,0);
+		board = piece.threatenedSquares(board);
+		board.printBoard();
+		
+		board = new Board(new Square[5][5]);
+		piece = new Rook(2,2);
+		board = piece.threatenedSquares(board);
+		board.printBoard();
+		
+		board = new Board(new Square[5][5]);
+		piece = new Rook(4,4);
+		board = piece.threatenedSquares(board);
+		board.printBoard();*/
 	}
 	
 	/**
@@ -120,10 +135,11 @@ public class Game {
 	
 	private static void printSolutions(final List<Board> solutions){
 		
-		System.out.println("There are " + solutions.size() + " solutions");
 		for(int i=0; i<solutions.size(); i++){
 			solutions.get(i).printBoard();
 		}
+		
+		System.out.println("There are " + solutions.size() + " solutions");
 		
 	}
 }
