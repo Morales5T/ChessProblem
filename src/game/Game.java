@@ -41,11 +41,11 @@ public class Game {
 		
 		System.out.println("Please, introduce the number of pieces of each type:");
 		
-		int nKings = getNumber(br, "King:");
-		int nKnights = getNumber(br, "Knight:");
-		int nQueens = getNumber(br, "Queen:");
-		int nRooks = getNumber(br, "Rook:");
-		int nBishops = getNumber(br, "Bishop:");
+		int nKings = getNumber(br, "King(K):");
+		int nKnights = getNumber(br, "Knight(N):");
+		int nQueens = getNumber(br, "Queen(Q):");
+		int nRooks = getNumber(br, "Rook(R):");
+		int nBishops = getNumber(br, "Bishop(B):");
 		
 		ArrayList<IPiece> pieces = new ArrayList<IPiece>();
 		pieces.addAll(createPieces(nKings, 0));
@@ -55,7 +55,7 @@ public class Game {
 		pieces.addAll(createPieces(nBishops, 4));
 		
 		List<Board> solutions = new ArrayList<Board>();
-		Logic.init(board, pieces, solutions);
+		Logic.findSolution(board, pieces, solutions);
 		
 		printSolutions(solutions);		
 	}

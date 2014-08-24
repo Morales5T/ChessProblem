@@ -43,10 +43,10 @@ public abstract class Piece implements IPiece{
 		if(boardAux.isFree(this.point.y, this.point.x)){
 			//Depending on the piece the algorithm are different
 			if(Square.KING.equals(this.getType()) || Square.KNIGHT.equals(this.getType())){
-				this.threatenedSquaresB(boardAux);
+				boardAux = this.threatenedSquaresB(boardAux);
 			}
 			else{
-				this.threatenedSquaresA(boardAux);
+				boardAux = this.threatenedSquaresA(boardAux);
 			}								
 		}
 		else{
@@ -66,7 +66,7 @@ public abstract class Piece implements IPiece{
 	 * 
 	 * @param board
 	 */
-	private void threatenedSquaresA(Board board) {
+	private Board threatenedSquaresA(Board board) {
 		
 		//Places the piece in the square
 		board.setSquare(this.point.y, this.point.x, this.getType());
@@ -95,12 +95,12 @@ public abstract class Piece implements IPiece{
 				posY = (point.y * iter) + this.point.y;
 				if(board.isInsideBoard(posY, posX)){
 					if(board.isValid(posY, posX)){
-						board.getSquares()[posY][posX] = Square.THREATED;
+						board.setSquare(posY, posX, Square.THREATED);
 						aux++;
 					}
 					else{
 						//This means that one occupied square has been found. The algorithm has to end here.
-						board = null;
+						return null;
 					}
 				}
 				else{
@@ -109,6 +109,8 @@ public abstract class Piece implements IPiece{
 				}
 			}
 		}
+		
+		return board;
 	}
 	
 	/**
@@ -118,7 +120,7 @@ public abstract class Piece implements IPiece{
 	 * 
 	 * @param board
 	 */
-	private void threatenedSquaresB(Board board) {
+	private Board threatenedSquaresB(Board board) {
 		
 		//Places the piece in the square
 		board.setSquare(this.point.y, this.point.x, this.getType());
@@ -137,15 +139,16 @@ public abstract class Piece implements IPiece{
 			posY = point.y + this.point.y;
 			if(board.isInsideBoard(posY, posX)){
 				if(board.isValid(posY, posX)){
-					board.getSquares()[posY][posX] = Square.THREATED;
+					board.setSquare(posY, posX, Square.THREATED);
 				}
 				else{
 					//This means that one occupied square has been found. The algorithm has to end here.
-					board = null;
+					return null;
 				}
 			}
 		}
 		
+		return board;
 	}
 	
 	/**

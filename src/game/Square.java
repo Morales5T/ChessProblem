@@ -7,12 +7,12 @@ package game;
  */
 public enum Square{
 	FREE("-"), 
-	THREATED("T"),
+	THREATED("-"),
 	KING("K"),
 	QUEEN("Q"),
 	BISHOP("B"),
 	ROOK("R"),
-	KNIGHT("G"); 
+	KNIGHT("N"); 
 			
 	private final String square;
 			

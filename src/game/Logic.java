@@ -5,16 +5,21 @@ import java.util.List;
 
 import pieces.IPiece;
 
+/**
+ * 
+ * @author Luis
+ *
+ * This class contains the algorithm to fin the solutions.
+ */
 public class Logic {
 	
-	public static void init(final Board board, final ArrayList<IPiece> pieces, final List<Board> solutions){
+	public static void findSolution(final Board board, final ArrayList<IPiece> pieces, final List<Board> solutions){
 		
-		int index=0;
 		IPiece piece;
 		Board boardAux;
 		
-		while(index < pieces.size()){
-			piece = pieces.remove(index);
+		while(!pieces.isEmpty()){
+			piece = pieces.remove(0);
 			for(int i=0; i<board.getSquares().length; i++){
 				piece.setY(i);
 				for(int j=0; j<board.getSquares()[0].length; j++){
@@ -22,13 +27,11 @@ public class Logic {
 					boardAux = piece.threatenedSquares(board);
 					if(pieces.isEmpty() && (null != boardAux)){
 						solutions.add(boardAux);
-					}
-					if ( null != boardAux){			
-						init(boardAux, copyOf(pieces), solutions); 
+					}else if ( null != boardAux){			
+						findSolution(boardAux, copyOf(pieces), solutions); 
 					}									
 				}
 			}
-			index++;
 		}
 	}
 	
