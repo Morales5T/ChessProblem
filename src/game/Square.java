@@ -23,7 +23,6 @@ public enum Square{
 	@Override
 	public String toString(){
 		return this.square;
+
 	}
 }
-	
-
