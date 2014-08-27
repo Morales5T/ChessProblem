@@ -1,7 +1,7 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import pieces.IPiece;
 
@@ -13,11 +13,11 @@ import pieces.IPiece;
  */
 public class Logic {
 	
-	public static void findSolution(final Board board, final ArrayList<IPiece> pieces, final List<Board> solutions){
+	public static void findSolution(final Board board, final ArrayList<IPiece> pieces, final HashMap<String, Board> solutions){
 		
 		IPiece piece = pieces.remove(0);
 		Board boardAux;
-		boolean aux;
+		String key = "";
 		
 		//Every single position has to be checked
 		for(int i=0; i<board.getSquares().length; i++){
@@ -27,17 +27,22 @@ public class Logic {
 				//If the piece can be placed boardAux is the new board with the new piece placed,
 				//else boardAux is null
 				boardAux = piece.threatenedSquares(board);
-				//Finally if the piece could be placed, the list of pieces is empty 
-				//(it means that we are in the deepest level of the tree) and the solution is not 
-				//already in the list of solutions it´s added
-				aux = (null != boardAux) && !contains(solutions, boardAux);
-				if(pieces.isEmpty() && aux){
-					solutions.add(boardAux);
-				//If the piece could be placed,the solution is not already in the list of solutions 
-			    //and the list of pieces is not empty it goes one level deeper in the tree
-				}else if (aux){			
-					findSolution(boardAux, copyOf(pieces), solutions); 
-				}									
+				if(null != boardAux){
+					//Now the algorithm uses an hashmap to save the solutions because is much more efficient
+					//so it needs a unique key to save every solution
+					key = getKey(boardAux);
+					//Finally if the piece could be placed, the list of pieces is empty 
+					//(it means that we are in the deepest level of the tree) and the solution is not 
+					//already in the list of solutions it´s added
+					if(pieces.isEmpty() && !solutions.containsKey(key)){	
+						solutions.put(key, boardAux);
+					}
+					else if(!solutions.containsKey(key)){
+						//If the piece could be placed,the solution is not already in the list of solutions 
+						//and the list of pieces is not empty it goes one level deeper in the tree
+						findSolution(boardAux, copyOf(pieces), solutions); 
+					}	
+				}
 			}
 		}
 	}
@@ -53,19 +58,24 @@ public class Logic {
 	}
 	
 	/**
-	 * Checks if the board is already a solution
+	 * Builds an unique key for every solution if the board is already a solution
 	 * 
-	 * @param solutions list of solutions
-	 * @param board single case to compare with the list cases
-	 * @return
+	 * @param board solution
+	 * @return unique key
 	 */
-	private static boolean contains(final List<Board> solutions, final Board board){
-		for(Board b : solutions){
-			if(board.equals(b)){
-				return true;
+	private static String getKey(final Board board){
+		
+		String key = "";
+		
+		for(int i=0; i<board.getSquares().length; i++){
+			for(int j=0; j<board.getSquares()[0].length; j++){
+				if(!board.getSquare(i, j).equals(Square.FREE) && !board.getSquare(i, j).equals(Square.THREATED)){
+					key = key + board.getSquare(i, j).toString() + i + j;
+				}
 			}
 		}
-		return false;
+		
+		return key;
 	}
 
 }

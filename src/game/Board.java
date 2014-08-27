@@ -91,25 +91,6 @@ public class Board implements Cloneable{
 		return boardClone;
 	}
 	
-	/**
-	 * Checks if both boards are equals
-	 * 
-	 * @param board board to compare with
-	 * @return 
-	 */
-	public boolean equals(Board board){
-		
-		for(int i=0; i< this.squares.length; i++){
-			for(int j=0; j< this.squares[0].length; j++){
-				if(!this.squares[i][j].equals(board.getSquares()[i][j])){
-					return false;
-				}
-			}
-		}
-		
-		return true;
-	}
-	
 	/* Getters and Setters */
 	
 	public void setSquare(final int y, final int x, final Square square){
