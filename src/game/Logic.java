@@ -37,7 +37,6 @@ public class Logic {
 						//(it means that we are in the deepest level of the tree) and the solution is not 
 						//already in the list of solutions it´s added
 						if(!solutions.containsKey(key)){	
-							boardAux.printBoard();
 							solutions.put(key, boardAux);
 						}
 					}else{
