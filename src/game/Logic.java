@@ -28,20 +28,21 @@ public class Logic {
 				//else boardAux is null
 				boardAux = piece.threatenedSquares(board);
 				if(null != boardAux){
-					//Now the algorithm uses an hashmap to save the solutions because is much more efficient
-					//so it needs a unique key to save every solution
-					key = getKey(boardAux);
-					//Finally if the piece could be placed, the list of pieces is empty 
-					//(it means that we are in the deepest level of the tree) and the solution is not 
-					//already in the list of solutions it´s added
-					if(pieces.isEmpty() && !solutions.containsKey(key)){	
-						solutions.put(key, boardAux);
-					}
-					else if(!solutions.containsKey(key)){
-						//If the piece could be placed,the solution is not already in the list of solutions 
-						//and the list of pieces is not empty it goes one level deeper in the tree
+					//Now the algorithm only calculates the key when it is a potential solution
+					if(pieces.isEmpty()){
+						//Now the algorithm uses an hashmap to save the solutions because is much more efficient
+						//so it needs a unique key to save every solution
+						key = getKey(boardAux);
+						//Finally if the piece could be placed, the list of pieces is empty 
+						//(it means that we are in the deepest level of the tree) and the solution is not 
+						//already in the list of solutions it´s added
+						if(!solutions.containsKey(key)){	
+							boardAux.printBoard();
+							solutions.put(key, boardAux);
+						}
+					}else{
 						findSolution(boardAux, copyOf(pieces), solutions); 
-					}	
+					}
 				}
 			}
 		}

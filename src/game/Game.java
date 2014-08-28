@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import pieces.Bishop;
 import pieces.IPiece;
@@ -62,6 +65,7 @@ public class Game {
 		Logic.findSolution(board, pieces, solutions);
 		
 		printSolutions(solutions);		
+		
 	}
 	
 	/**
@@ -146,9 +150,11 @@ public class Game {
 	 */
 	private static void printSolutions(final HashMap<String, Board> solutions){
 		
-		/*for(int i=0; i<solutions.size(); i++){
-			solutions.get(i).printBoard();
-		}*/
+		Iterator<Entry<String, Board>> it = solutions.entrySet().iterator();
+		while(it.hasNext()){
+			Map.Entry<String, Board> e = (Map.Entry<String, Board>)it.next();
+			e.getValue().printBoard();
+		}
 		
 		System.out.println("There are " + solutions.size() + " solutions");
 		
